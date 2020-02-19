@@ -17,6 +17,9 @@ cp $H/credentials/krb5.conf /etc
 mkdir -p /home/sqlstream/edr-out
 chown -R sqlstream:sqlstream /home/sqlstream
 
+# make sure the test KDC server is known to us
+cat $H/credentials/testhosts >>/etc/hosts
+
 $SQLSTREAM_HOME/bin/sqllineClient --run=$H/setup.sql
 
 echo Use $H/startPumps.sql to start the pumps

@@ -36,7 +36,11 @@ OPTIONS (
         "SKIP_HEADER" 'true',
 
         "DIRECTORY" '/home/sqlstream/hiveperf/edr',
-        "FILENAME_PATTERN" '.*REPORTOCS.*'
+        "FILENAME_PATTERN" '.*REPORTOCS.*',
+
+-- the sample data set is 600k rows; this expands that to 60M rows and can be changed to 'FOREVER' if needed
+	"STATIC_FILES" 'true',
+	"REPEAT" '100'
 
 );
 
