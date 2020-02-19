@@ -1,0 +1,1 @@
+alter pump "hiveperf".* start;
