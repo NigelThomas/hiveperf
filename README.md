@@ -6,7 +6,7 @@ Unpack `hiveperf.tgz` into `/home/sqlstream`. This will create a folder tree sta
 
 ## Hive Sink Table
 
-The target Hive table is created in the Hive schema `hiveperf` with the name `hive_edr_data`. The SQL is in `hive_edr_hiveperf.sql` and needs to be copied to the Hive cluster.
+The target Hive table is created in the Hive schema `hiveperf` with the name `hive_edr_hiveperf`. The SQL is in `hive_edr_hiveperf.sql` and needs to be copied to the Hive cluster.
 
 The docker instance does not attempt to manage the remote Hive table; you shoud manually remove data from the table before test runs by:
 
@@ -38,7 +38,8 @@ To support long running tests the source foreign stream uses the `STATIC_FILES` 
         "STATIC_FILES" 'true',
         "REPEAT" '100'
 ```
-The test data amounts to 600k rows; so the full cycle counts to 60M rows.
+The test data amounts to 600k rows; so the full cycle counts to 60M rows (about 16G).
+
 
 ## Sink
 
