@@ -6,11 +6,7 @@
 
 mkdir -p $SQLSTREAM_HOME/classes/net/sf/farrago/dynamic/
 
-echo ... Creating the clean_edrs interface stream
-
-sqllineClient --run=$(which clean_edrs.sql)
-
-echo ... done
+echo ... installing the SQLstream schema 
 
 $SQLSTREAM_HOME/bin/sqllineClient --run=setup.sql
 
