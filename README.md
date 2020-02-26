@@ -8,7 +8,12 @@ Unpack `hiveperf.tgz` into `/home/sqlstream`. This will create a folder tree sta
 
 The target Hive table is created in the Hive schema `hiveperf` with the name `hive_edr_data`. The SQL is in `hive_edr_hiveperf.sql` and needs to be copied to the Hive cluster.
 
-The docker instance does not attempt to manage the remote Hive table; you shoud manually remove data from the table before test runs by connecting to 
+The docker instance does not attempt to manage the remote Hive table; you shoud manually remove data from the table before test runs by:
+
+* ssh to a suitable server (`guavus@192.168.141.102`)
+* sudo su -
+* kinit 
+* use beeline to access tables
 
 ## Install s-Server schema and credentials
 
@@ -37,9 +42,11 @@ The test data amounts to 600k rows; so the full cycle counts to 60M rows.
 
 ## Sink
 
-A foreign stream "`edr_data_fs"` is created. This references the `HIVE_SERVER` server. Column names have been lower-cased and normalized to match the Hive table.
+A foreign stream "`edr_data_fs"` is created. This references the `HIVE_SERVER` server. Column names have been lower-cased and normalized to match the Hive table (`hiveperf.hive_edr_data`).
 
 * Local files go to `/home/sqlstream/edr-out` on the docker container
+
+## 
 
 ## Credentials
 
@@ -58,7 +65,11 @@ The following files are copied to /home/sqlstream by `install.sh`
 
 These files are not included in the git repository, but they are included in the tarball.
 
+* `README.md` - documents how to use the credentials
+
 ## Starting and stopping the data flow
+
+This is managed by the docker startup; these scripts are generated as the docker container starts.
 
 ```
 $SQLSTREAM_HOME/bin/sqllineClient --run=startPumps.sql
