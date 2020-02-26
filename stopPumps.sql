@@ -1,1 +1,0 @@
-alter pump "hiveperf".* stop;
