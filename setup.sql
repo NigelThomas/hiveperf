@@ -33,12 +33,12 @@ OPTIONS (
         "CHARACTER_ENCODING" 'UTF-8',
         "QUOTE_CHARACTER" '"',
         "SEPARATOR" ',',
-        "SKIP_HEADER" 'true',
+        "SKIP_HEADER" 'false',                          -- headers stripped from files because of bug with REPEAT
 
         "DIRECTORY" '/home/sqlstream/hiveperf/edr',
         "FILENAME_PATTERN" '.*REPORTOCS.*',
 
--- the sample data set is 600k rows; this expands that to 60M rows and can be changed to 'FOREVER' if needed
+                                                        -- the sample data set is 600k rows; this expands that to 60M rows and can be changed to 'FOREVER' if needed
 	"STATIC_FILES" 'true',
 	"REPEAT" '100'
 

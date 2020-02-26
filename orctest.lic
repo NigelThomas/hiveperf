@@ -1,9 +1,0 @@
-#Please Do not delete this comment line.
-INCREMENT engine sqlstreamd 6.0 31-jan-2020 uncounted \
-	VENDOR_STRING="name:ORCTEST max-threads:0 installation-id:null \
-	license-check-period:2h usage-check-period:30m \
-	usage-report-period:4h throttle-when:never" HOSTID=ANY \
-	ISSUER="SQLstream Inc." ISSUED=5-jan-2020 START=4-jan-2020 \
-	SIGN="031D 8586 4F0D 80E2 072C 4C61 33DA 68F4 D85F 6F45 757A \
-	2584 6F64 7371 D497 14C0 9632 0FA4 EA45 7E58 BD7B B782 BA74 \
-	74AA 6DF0 5FA3 62EA 0711 6F04 3231" SIGN2=AB8A16682568
