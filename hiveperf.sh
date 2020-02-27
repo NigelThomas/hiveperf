@@ -4,7 +4,7 @@
 
 HERE=$(cd `dirname $0`; pwd)
 BASE_IMAGE=sqlstream/streamlab-git
-CONTAINER_NAME=hiveperf
+: ${CONTAINER_NAME:=hiveperf}
 
 # This is a SQL project - there are no SLAB files
 : ${LOAD_SLAB_FILES:=}
@@ -30,11 +30,10 @@ fi
 
 docker run $HOST_JNDI_MOUNT \
            -v ${HOST_CRED_MOUNT:=$HOME/credentials}:/home/sqlstream/credentials \
-           -p 5570:5570 -p 5580:5580 \
            -e GIT_ACCOUNT=$GIT_ACCOUNT -e GIT_PROJECT_NAME=$GIT_PROJECT_NAME -e GIT_PROJECT_HASH=$GIT_PROJECT_HASH \
            -e LOAD_SLAB_FILES="${LOAD_SLAB_FILES:=}" \
            -e SQLSTREAM_HEAP_MEMORY=${SQLSTREAM_HEAP_MEMORY:=4096m} \
            -e SQLSTREAM_SLEEP_SECS=${SQLSTREAM_SLEEP_SECS:=5} \
            -d --name $CONTAINER_NAME -it $BASE_IMAGE:$BASE_IMAGE_LABEL
 
-docker logs -f $CONTAINER_NAME
+#docker logs -f $CONTAINER_NAME

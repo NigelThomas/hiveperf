@@ -17,11 +17,14 @@ The docker instance does not attempt to manage the remote Hive table; you shoud 
 
 ## Install s-Server schema and credentials
 
-The SQLstream end of the data flow is created using the install script:
+The SQLstream end of the data flow is created using the install scripts:
 
 ```
-. /home/sqlstream/hiveperf/install.sh
+. /home/sqlstream/hiveperf/pre-startup.sh
+. /home/sqlstream/hiveperf/pre-server.sh
 ```
+
+This is managed by the bootstrap utilities present on the docker image `sqlstream/streamlab-git`.
 
 ## SQLstream schema
 
@@ -46,8 +49,6 @@ The test data amounts to 600k rows; so the full cycle counts to 60M rows (about 
 A foreign stream "`edr_data_fs"` is created. This references the `HIVE_SERVER` server. Column names have been lower-cased and normalized to match the Hive table (`hiveperf.hive_edr_data`).
 
 * Local files go to `/home/sqlstream/edr-out` on the docker container
-
-## 
 
 ## Credentials
 
