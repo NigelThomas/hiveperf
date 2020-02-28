@@ -26,9 +26,25 @@ then
     HOST_JNDI_MOUNT="-v ${HOST_JNDI_DIR:=$HERE/jndi}:$CONTAINER_JNDI_DIR"
 fi
 
+if [ -n "$HOST_OUTPUT_DIR" ]
+then
+    if [ ! -d $HOST_OUTPUT_DIR ]
+    then
+        mkdir -p $HOST_OUTPUT_DIR
+    else
+        rm -rf $HOST_OUTPUT_DIR
+        mkdir -p $HOST_OUTPUT_DIR
+    fi
+
+    HOST_OUTPUT_MOUNT="-v ${HOST_OUTPUT_DIR}:${CONTAINER_OUTPUT_DIR}:=/home/sqlstream/output"
+else
+    HOST_OUTPUT_MOUNT=
+fi
+
+
 # override default host mount point for credentials using HOST_CRED_MOUNT
 
-docker run $HOST_JNDI_MOUNT \
+docker run $HOST_JNDI_MOUNT $HOST_OUTPUT_MOUNT \
            -v ${HOST_CRED_MOUNT:=$HOME/credentials}:/home/sqlstream/credentials \
            -e GIT_ACCOUNT=$GIT_ACCOUNT -e GIT_PROJECT_NAME=$GIT_PROJECT_NAME -e GIT_PROJECT_HASH=$GIT_PROJECT_HASH \
            -e LOAD_SLAB_FILES="${LOAD_SLAB_FILES:=}" \

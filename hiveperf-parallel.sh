@@ -1,18 +1,34 @@
 tdir=test-`date +"%Y.%m.%d-%H.%M"`
 mkdir $tdir
 
+if [ -n "$2" ]
+then
+    # we are going to use the local file system for temp output files
+    HIVE_OUTPUT_STYLE="mounted volume"
+else
+    HIVE_OUTPUT_STYLE="docker layer"
+    HIVE_OUTPUT_DIR=
+fi
+
+    
 for p in `seq -w 1 $1`
 do
     export CONTAINER_NAME=hiveperf$p
-    echo "starting $CONTAINER_NAME"
+    if [ "${HIVE_OUTPUT_STYLE}" = "mounted volume" ]
+    then
+        # we are going to use the local file system for temp output files
+        export HIVE_OUTPUT_DIR=`pwd`/${CONTAINER_NAME}
+    fi
+    echo "starting $CONTAINER_NAME" 
     ./hiveperf.sh
 done
+
 cd $tdir
 
-echo "hiveperf-parallel with $1 containers started at `date` logging to $tdir" | tee > summary.txt
+echo "hiveperf-parallel with $1 containers started at `date` using ${HIVE_OUTPUT_STYLE} logging to $tdir" | tee > summary.txt
 
-# stats every 15 secs for 20 minutes with timestamp and wide format
-vmstat -t -w 15 80 | tee vmstat.log
+# stats every 15 secs for 25 minutes with timestamp and wide format
+vmstat -t -w 15 100 | tee vmstat.log
 
 for p in `seq -w 1 $1`
 do
@@ -29,10 +45,12 @@ do
     docker cp ${CONTAINER_NAME}:/home/sqlstream/monitor/edr_minute_count-${CONTAINER_NAME}.csv .
 done
 
+echo Test $tdir completed at `date` | tee >>summary.txt
+# Keep a running summary in the next level up
+cat summary.txt >> ../test-summary.txt
 
 cd ..
 pwd
 
-echo Test $tdir completed at `date` | tee >>summary.txt
 
 
