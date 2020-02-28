@@ -241,7 +241,7 @@ CREATE OR REPLACE VIEW "edr_per_min"
 AS
 SELECT STREAM COUNT(*) as "edr_count"
 FROM  "edr_data" s
-GROUP BY STEP(s.rowtime by '1' MINUTE)
+GROUP BY STEP(s.rowtime by INTERVAL '1' MINUTE)
 ;
 
 CREATE OR REPLACE FOREIGN STREAM "edr_per_min_fs"
@@ -255,7 +255,7 @@ options
 , "FILENAME_SUFFIX" '.csv'
 , "FILENAME_DATE_FORMAT" 'yyyy-MM-dd-HH.mm.ss'
 , "FILE_ROTATION_TIME" '1d'   -- we don't really want rotation
-, "ORIGINAL_FILENAME" 'edr_minute_count-%HOSTNAME%.csv',
+, "ORIGINAL_FILENAME" 'edr_minute_count-%HOSTNAME%.csv'
 , "FORMATTER_INCLUDE_ROWTIME" 'true'
 );
 
