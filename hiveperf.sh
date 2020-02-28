@@ -34,6 +34,6 @@ docker run $HOST_JNDI_MOUNT \
            -e LOAD_SLAB_FILES="${LOAD_SLAB_FILES:=}" \
            -e SQLSTREAM_HEAP_MEMORY=${SQLSTREAM_HEAP_MEMORY:=4096m} \
            -e SQLSTREAM_SLEEP_SECS=${SQLSTREAM_SLEEP_SECS:=5} \
-           -d --name $CONTAINER_NAME -it $BASE_IMAGE:$BASE_IMAGE_LABEL
+           -d --name $CONTAINER_NAME --hostname $CONTAINER_NAME -it $BASE_IMAGE:$BASE_IMAGE_LABEL
 
 #docker logs -f $CONTAINER_NAME
