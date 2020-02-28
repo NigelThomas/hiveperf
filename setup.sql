@@ -261,6 +261,6 @@ options
 
 CREATE OR REPLACE PUMP "edr_per_min_pump"
 AS
-INSERT INTO "edr_data_fs" ("edr_count")
+INSERT INTO "edr_per_min_fs" ("edr_count")
 SELECT STREAM "edr_count"
 FROM "edr_per_min";
