@@ -160,7 +160,7 @@ OPTIONS (
         "orc.version" 'V_0_11',
 
         "DIRECTORY" '/home/sqlstream/repro_edr',
-        "FILENAME_PREFIX" 'edr-out-',
+        "FILENAME_PREFIX" 'edr-out-%HOSTNAME%',
         "FILENAME_SUFFIX" '.orc',
         "FILENAME_DATE_FORMAT" 'yyyy-MM-dd-HH.mm.ss',
         

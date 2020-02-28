@@ -8,6 +8,8 @@
 mkdir -p $SQLSTREAM_HOME/classes/net/sf/farrago/dynamic/
 
 echo ... installing the SQLstream schema 
+# update setup.sql to replace placeholders with actual values
+sed -i -e "s/%HOSTNAME%/`hostname`/g" setup.sql
 
 $SQLSTREAM_HOME/bin/sqllineClient --run=setup.sql
 

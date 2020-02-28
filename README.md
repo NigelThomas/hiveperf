@@ -26,6 +26,23 @@ The SQLstream end of the data flow is created using the install scripts:
 
 This is managed by the bootstrap utilities present on the docker image `sqlstream/streamlab-git`.
 
+## Starting the processing
+
+For a single processor use the `hiveperf.sh` script. This will start a container with the name `hiveperf` - the container name can also be set externally:
+
+```
+export CONTAINER_NAME=myspecialname
+./hiveperf.sh
+```
+
+To start multiple containers in parallel, use `hiveperf-parallel.sh <n>` This will start n containers in parallel. The container names will be hiveperf1,hiveperf2,...,hiveperfn. If more than 10 containers are started the names will be hiveperf01, hiveperf02, etc up to hiveperf99; and in the unlikely event that you start more than 100 processors names will start from hiveperf001.
+
+```
+./hiveperf-parallel.sh 5
+```
+
+**NOTE**: When starting the docker containers, the caller only needs the two scripts `hiveperf.sh` and `hiveperf-parallel.sh`. All other content is pulled from the git remote origin.
+
 ## SQLstream schema
 
 The SQLstream end of the data flow is created in the `"hiveperf"` schema using `sqllineClient --run=/home/sqlstream/hiveperf/setup.sql` 
