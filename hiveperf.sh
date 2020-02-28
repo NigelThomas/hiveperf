@@ -36,7 +36,7 @@ then
         mkdir -p $HOST_OUTPUT_DIR
     fi
 
-    HOST_OUTPUT_MOUNT="-v ${HOST_OUTPUT_DIR}:${CONTAINER_OUTPUT_DIR}:=/home/sqlstream/output"
+    HOST_OUTPUT_MOUNT="-v ${HOST_OUTPUT_DIR}:${CONTAINER_OUTPUT_DIR:=/home/sqlstream/output}"
 else
     HOST_OUTPUT_MOUNT=
 fi
