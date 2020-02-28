@@ -41,6 +41,15 @@ To start multiple containers in parallel, use `hiveperf-parallel.sh <n>` This wi
 ./hiveperf-parallel.sh 5
 ```
 
+The containers are monitored and after a period (20 or 25 minutes) the trace files and some other products are copied into a test directory `test-yyyy.MM.dd-HH:mm` under the current working directory.
+
+A second parameter, if set, causes the local ORC output files to be output to a directory of `./${CONTAINER_NAME}` - this may be more performant than writing to the docker image layer.
+```
+./hiveperf-parallel.sh 5 Y
+```
+At the moment, any non-blank parameter 2 value has this effect.
+
+
 **NOTE**: When starting the docker containers, the caller only needs the two scripts `hiveperf.sh` and `hiveperf-parallel.sh`. All other content is pulled from the git remote origin.
 
 ## SQLstream schema
