@@ -40,7 +40,7 @@ OPTIONS (
 
                                                         -- the sample data set is 600k rows; this expands that to 60M rows and can be changed to 'FOREVER' if needed
 	"STATIC_FILES" 'true',
-	"REPEAT" '100'
+	"REPEAT" '200'
 
 );
 
