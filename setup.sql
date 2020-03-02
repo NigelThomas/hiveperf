@@ -45,80 +45,80 @@ OPTIONS (
 );
 
 
-CREATE OR REPLACE STREAM "edr_data"
-(
-    "sn-end-time" VARCHAR(32),
-    "sn-start-time" VARCHAR(32),
-    "bearer-3gpp imei" VARCHAR(32),
-    "bearer-3gpp imsi" BIGINT,
-    "bearer-3gpp rat-type" INTEGER,
-    "bearer-3gpp user-location-information" VARCHAR(32),
-    "ip-server-ip-address" VARCHAR(16),
-    "ip-subscriber-ip-address" VARCHAR(64),
-    "p2p-tls-sni" VARCHAR(128),
-    "radius-calling-station-id" BIGINT,
-    "sn-direction" VARCHAR(16),
-    "sn-duration" INTEGER,
-    "sn-flow-end-time" VARCHAR(32),
-    "sn-flow-id" VARCHAR(32),
-    "sn-flow-start-time" VARCHAR(32),
-    "sn-server-port" INTEGER,
-    "sn-subscriber-port" INTEGER,
-    "sn-volume-amt-ip-bytes-downlink" INTEGER,
-    "sn-volume-amt-ip-bytes-uplink" INTEGER,
-    "sn-closure-reason" INTEGER,
-    "event-label" VARCHAR(16)
-);
+-- CREATE OR REPLACE STREAM "edr_data"
+-- (
+--     "sn-end-time" VARCHAR(32),
+--     "sn-start-time" VARCHAR(32),
+--     "bearer-3gpp imei" VARCHAR(32),
+--     "bearer-3gpp imsi" BIGINT,
+--     "bearer-3gpp rat-type" INTEGER,
+--     "bearer-3gpp user-location-information" VARCHAR(32),
+--     "ip-server-ip-address" VARCHAR(16),
+--     "ip-subscriber-ip-address" VARCHAR(64),
+--     "p2p-tls-sni" VARCHAR(128),
+--     "radius-calling-station-id" BIGINT,
+--     "sn-direction" VARCHAR(16),
+--     "sn-duration" INTEGER,
+--     "sn-flow-end-time" VARCHAR(32),
+--     "sn-flow-id" VARCHAR(32),
+--     "sn-flow-start-time" VARCHAR(32),
+--     "sn-server-port" INTEGER,
+--     "sn-subscriber-port" INTEGER,
+--     "sn-volume-amt-ip-bytes-downlink" INTEGER,
+--     "sn-volume-amt-ip-bytes-uplink" INTEGER,
+--     "sn-closure-reason" INTEGER,
+--     "event-label" VARCHAR(16)
+-- );
 
-CREATE OR REPLACE PUMP "input_pump" STOPPED
-AS
-INSERT INTO "edr_data"
-(
-    "sn-end-time",
-    "sn-start-time",
-    "bearer-3gpp imei",
-    "bearer-3gpp imsi",
-    "bearer-3gpp rat-type",
-    "bearer-3gpp user-location-information",
-    "ip-server-ip-address",
-    "ip-subscriber-ip-address",
-    "p2p-tls-sni",
-    "radius-calling-station-id",
-    "sn-direction",
-    "sn-duration",
-    "sn-flow-end-time",
-    "sn-flow-id",
-    "sn-flow-start-time",
-    "sn-server-port",
-    "sn-subscriber-port",
-    "sn-volume-amt-ip-bytes-downlink",
-    "sn-volume-amt-ip-bytes-uplink",
-    "sn-closure-reason",
-    "event-label"
-)
-SELECT STREAM 
-    "sn-end-time",
-    "sn-start-time",
-    "bearer-3gpp imei",
-    "bearer-3gpp imsi",
-    "bearer-3gpp rat-type",
-    "bearer-3gpp user-location-information",
-    "ip-server-ip-address",
-    "ip-subscriber-ip-address",
-    "p2p-tls-sni",
-    "radius-calling-station-id",
-    "sn-direction",
-    "sn-duration",
-    "sn-flow-end-time",
-    "sn-flow-id",
-    "sn-flow-start-time",
-    "sn-server-port",
-    "sn-subscriber-port",
-    "sn-volume-amt-ip-bytes-downlink",
-    "sn-volume-amt-ip-bytes-uplink",
-    "sn-closure-reason",
-    "event-label"
-FROM "edr_data_fs";
+-- CREATE OR REPLACE PUMP "input_pump" STOPPED
+-- AS
+-- INSERT INTO "edr_data"
+-- (
+--     "sn-end-time",
+--     "sn-start-time",
+--     "bearer-3gpp imei",
+--     "bearer-3gpp imsi",
+--     "bearer-3gpp rat-type",
+--     "bearer-3gpp user-location-information",
+--     "ip-server-ip-address",
+--     "ip-subscriber-ip-address",
+--     "p2p-tls-sni",
+--     "radius-calling-station-id",
+--     "sn-direction",
+--     "sn-duration",
+--     "sn-flow-end-time",
+--     "sn-flow-id",
+--     "sn-flow-start-time",
+--     "sn-server-port",
+--     "sn-subscriber-port",
+--     "sn-volume-amt-ip-bytes-downlink",
+--     "sn-volume-amt-ip-bytes-uplink",
+--     "sn-closure-reason",
+--     "event-label"
+-- )
+-- SELECT STREAM 
+--     "sn-end-time",
+--     "sn-start-time",
+--     "bearer-3gpp imei",
+--     "bearer-3gpp imsi",
+--     "bearer-3gpp rat-type",
+--     "bearer-3gpp user-location-information",
+--     "ip-server-ip-address",
+--     "ip-subscriber-ip-address",
+--     "p2p-tls-sni",
+--     "radius-calling-station-id",
+--     "sn-direction",
+--     "sn-duration",
+--     "sn-flow-end-time",
+--     "sn-flow-id",
+--     "sn-flow-start-time",
+--     "sn-server-port",
+--     "sn-subscriber-port",
+--     "sn-volume-amt-ip-bytes-downlink",
+--     "sn-volume-amt-ip-bytes-uplink",
+--     "sn-closure-reason",
+--     "event-label"
+-- FROM "edr_data_fs";
 
 
 -- Note columns are lower-cased and hyphens and spaces turned to underscores
@@ -237,30 +237,30 @@ SELECT STREAM
     "event-label"
 FROM "edr_data_fs";
 
-CREATE OR REPLACE VIEW "edr_per_min"
-AS
-SELECT STREAM COUNT(*) as "edr_count"
-FROM  "edr_data" s
-GROUP BY STEP(s.rowtime by INTERVAL '1' MINUTE)
-;
+-- CREATE OR REPLACE VIEW "edr_per_min"
+-- AS
+-- SELECT STREAM COUNT(*) as "edr_count"
+-- FROM  "edr_data" s
+-- GROUP BY STEP(s.rowtime by INTERVAL '1' MINUTE)
+-- ;
 
-CREATE OR REPLACE FOREIGN STREAM "edr_per_min_fs"
-( "edr_count" BIGINT
-)
-SERVER FILE_SERVER
-options
-( "FORMATTER" 'CSV'
-, "DIRECTORY" '/home/sqlstream/monitor'
-, "FILENAME_PREFIX" 'count-%HOSTNAME%'
-, "FILENAME_SUFFIX" '.csv'
-, "FILENAME_DATE_FORMAT" 'yyyy-MM-dd-HH.mm.ss'
-, "FILE_ROTATION_TIME" '1d'   -- we don't really want rotation
-, "ORIGINAL_FILENAME" 'edr_minute_count-%HOSTNAME%.csv'
-, "FORMATTER_INCLUDE_ROWTIME" 'true'
-);
+-- CREATE OR REPLACE FOREIGN STREAM "edr_per_min_fs"
+-- ( "edr_count" BIGINT
+-- )
+-- SERVER FILE_SERVER
+-- options
+-- ( "FORMATTER" 'CSV'
+-- , "DIRECTORY" '/home/sqlstream/monitor'
+-- , "FILENAME_PREFIX" 'count-%HOSTNAME%'
+-- , "FILENAME_SUFFIX" '.csv'
+-- , "FILENAME_DATE_FORMAT" 'yyyy-MM-dd-HH.mm.ss'
+-- , "FILE_ROTATION_TIME" '1d'   -- we don't really want rotation
+-- , "ORIGINAL_FILENAME" 'edr_minute_count-%HOSTNAME%.csv'
+-- , "FORMATTER_INCLUDE_ROWTIME" 'true'
+-- );
 
-CREATE OR REPLACE PUMP "edr_per_min_pump"
-AS
-INSERT INTO "edr_per_min_fs" ("edr_count")
-SELECT STREAM "edr_count"
-FROM "edr_per_min";
+-- CREATE OR REPLACE PUMP "edr_per_min_pump"
+-- AS
+-- INSERT INTO "edr_per_min_fs" ("edr_count")
+-- SELECT STREAM "edr_count"
+-- FROM "edr_per_min";
